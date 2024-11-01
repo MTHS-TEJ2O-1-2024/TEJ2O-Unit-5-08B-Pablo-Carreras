@@ -1,8 +1,28 @@
 /* Copyright (c) 2020 MTHS All rights reserved
  *
- * Created by: Mr. Coxall
- * Created on: Sep 2020
- * This program ...
+ * Created by: Pablo Carreras 
+ * Created on: Oct 2024
+ * This program moves a car and when is close to something it stops 
 */
 
-basic.showString('Hello, World!')
+// setup
+basic.showIcon(IconNames.Happy)
+
+let distanceOfObject: number
+
+// loop forever
+while (true) {
+    distanceOfObject = sonar.ping(
+        DigitalPin.P1,
+        DigitalPin.P2,
+        PingUnit.Centimeters
+    )
+
+    if (distanceOfObject < 10) {
+        robotbit.StpCarMove(0, 0)
+        basic.showIcon(IconNames.No)
+    } else {
+        robotbit.StpCarMove(10, 48)
+        basic.showIcon(IconNames.Yes)
+    }
+}
