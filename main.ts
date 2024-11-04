@@ -7,10 +7,8 @@
 
 // setup
 basic.showIcon(IconNames.Happy)
-
 let distanceOfObject: number
-
-// loop forever
+// loop
 while (true) {
     distanceOfObject = sonar.ping(
         DigitalPin.P1,
@@ -18,12 +16,26 @@ while (true) {
         PingUnit.Centimeters
     )
 
-    if (distanceOfObject < 10) {
-        robotbit.StpCarMove(0, 0)
-        basic.showIcon(IconNames.No)
-        robotbit.StpCarMove(-10, 65)
-    } else {
-        robotbit.StpCarMove(10, 65)
+    // forward
+    if (distanceOfObject > 10) {
         basic.showIcon(IconNames.Yes)
+        robotbit.StpCarMove(10, 48)
+    } else {
+
+        // stop
+        basic.showIcon(IconNames.No)
+        robotbit.StpCarMove(0, 0)
+        basic.pause(500)
+
+        // back
+        robotbit.StpCarMove(-10, 48)
+        basic.pause(1000)
+        
+        // turn 
+        robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B0)
+        basic.pause(500)
+        
+        // move 
+        robotbit.StpCarMove(10, 48)
     }
 }
