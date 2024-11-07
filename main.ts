@@ -10,7 +10,7 @@
 basic.showIcon(IconNames.Happy)
 let distanceOfObject: number
 
-// loop
+// loop forever
 while (true) {
     distanceOfObject = sonar.ping(
         DigitalPin.P1,
